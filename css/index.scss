@@ -1,3 +1,5 @@
+$primaryColor: #7e57c2;
+
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
@@ -30,7 +32,8 @@ pre {
 }
 
 a {
-    color: #7e57c2;
+    color: #fff;
+    text-decoration: underline;
 }
 
 h2 {
@@ -97,9 +100,7 @@ h3 {
                     }
                 }
 
-                &.n-light {
-                    color: #555;
-                    padding: 20px 0;
+                &.light {
                 }
 
                 font-size: 15px;
@@ -123,7 +124,6 @@ h3 {
                     background-position: center;
                     height: calc((100% - 100vh)/3 + 100vh);
                     transition: background 1s ease;
-                    filter: brightness(75%);
                     background-image: url(../img/dark-mobile-compressed/port-black.png);
 
                     @media screen and (orientation: landscape) {
@@ -131,6 +131,13 @@ h3 {
                             background-image: url(../img/dark-PC-compressed/land-black.png);
                         }
                     }
+                }
+                
+                .filter {
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    background-color: rgba(0, 0, 0, 0.25);
                 }
             }
 
@@ -169,6 +176,7 @@ a.n-dark {
     border: 1.5px solid white;
     border-radius: 2px;
     margin-right: 25px;
+    text-decoration: none;
 }
 
 footer {

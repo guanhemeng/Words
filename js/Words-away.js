@@ -1,4 +1,5 @@
 function WordsAway() {}
+
 WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = true) {
     return this.stringListed(text, missBrackets).join(mixin);
 }
@@ -26,7 +27,7 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
             let third = (list[j + 2] !== undefined) ?
                 this.toggleBracketsChar(list[j + 2]) :
                 '';
-            result += ('\u200e' + first + '\u202e' + third + second + '\u202c');
+            result += ('\u200e' + first + '\u202e' + third + '\u200b' + second + '\u202c');
         }
         if (i < rows.length - 1) {
             result += '\n';
@@ -55,6 +56,8 @@ WordsAway.prototype.toggleBracketsChar = function (char) {
         (char == '>') ? '<' :
         (char == '【') ? '】' :
         (char == '】') ? '【' :
+        (char == '[') ? ']' :
+        (char == ']') ? '[' :
         char;
 }
 WordsAway.prototype.verticalText = function (text, maxCol = 12, minHeight = 10) {
@@ -151,6 +154,7 @@ WordsAway.prototype.styles = {
         'sans-serif-italic': Array.from('𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡'),
         'sans-serif-bold-italic': Array.from('𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕'),
         'reverse': Array.from('ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎzⱯꓭƆꓷꓱℲꓨHIꓩꞰꓶꟽNOꓒQꓤSꞱꓵɅMX⅄Z'),
+        'mini': Array.from('ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ'),
         //实际有效：асԁеցһіјӏոорԛѕսԝхуАВСЕНІЈКМОРԚЅΤՍԜХΥΖ
         'fake-normal': Array.from('аbсԁеfցһіјkӏmոорԛrѕtսvԝхуzАВСDЕFGНІЈКLМNОРԚRЅΤՍVԜХΥΖ'),
     },
@@ -163,7 +167,20 @@ WordsAway.prototype.styles = {
         'sans-serif-bold': Array.from('𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵'),
     },
     marks: {
-        'normal': ['\\?', '\\.', ',', '!', '\\&',  '"'],
-        'reverse': ['¿','˙',"'",'¡','⅋',',,'],
+        'normal': ['\\?', '\\.', ',', '!', '\\&', '"'],
+        'reverse': ['¿', '˙', "'", '¡', '⅋', ',,'],
     },
+}
+WordsAway.prototype.back = function (text, marks) {
+    text = text.replace(/[\u200b\u200e]/g, '');
+    var reg1 = /\u202e(.*?)\u202c/g;
+    var reg2 = /\u202e([^\n\r\u202c]*)$/gm;
+    let array1, array2;
+    while ((array1 = reg1.exec(text)) !== null) {
+        text = text.replace(array1[1], this.toggleBrackets(this.stringListed(array1[1], marks).reverse().join(''), marks));
+    }
+    while ((array2 = reg2.exec(text)) !== null) {
+        text = text.replace(array2[1], this.toggleBrackets(this.stringListed(array2[1], marks).reverse().join(''), marks));
+    }
+    return text.replace(/[\u202e\u202c]/g, '');;
 }
