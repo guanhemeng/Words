@@ -1,6 +1,6 @@
 function WordsAway() {}
 
-WordsAway.prototype.mixin = function (text, mixin = '\u200b', missBrackets = true) {
+WordsAway.prototype.mixin = function (text, mixin = '\u2062', missBrackets = true) {
     return this.stringListed(text, missBrackets).join(mixin);
 }
 WordsAway.prototype.rowsReverse = function (text, missBrackets = true) {
@@ -8,6 +8,17 @@ WordsAway.prototype.rowsReverse = function (text, missBrackets = true) {
     var result = '';
     for (let i = 0; i < rows.length; i++) {
         result += '\u202e' + this.stringListed(rows[i], missBrackets).reverse().join('');
+        if (i < rows.length - 1) {
+            result += '\n';
+        }
+    }
+    return this.toggleBrackets(result, missBrackets);
+}
+WordsAway.prototype.rowsReverse2067 = function (text, missBrackets = true) {
+    var rows = text.split('\n');
+    var result = '';
+    for (let i = 0; i < rows.length; i++) {
+        result += '\u2067' + this.stringListed(rows[i], missBrackets).reverse().join('\u2067');
         if (i < rows.length - 1) {
             result += '\n';
         }
@@ -27,7 +38,7 @@ WordsAway.prototype.wordsReverse = function (text, missBrackets = true) {
             let third = (list[j + 2] !== undefined) ?
                 this.toggleBracketsChar(list[j + 2]) :
                 '';
-            result += ('\u200e' + first + '\u202e' + third + '\u200b' + second + '\u202c');
+            result += ('\u200e' + first + '\u202e' + third + '\u2062' + second + '\u202c');
         }
         if (i < rows.length - 1) {
             result += '\n';
@@ -172,7 +183,7 @@ WordsAway.prototype.styles = {
     },
 }
 WordsAway.prototype.back = function (text, marks) {
-    text = text.replace(/[\u200b\u200e]/g, '');
+    text = text.replace(/[\u2062\u200e]/g, '');
     var reg1 = /\u202e(.*?)\u202c/g;
     var reg2 = /\u202e([^\n\r\u202c]*)$/gm;
     let array1, array2;

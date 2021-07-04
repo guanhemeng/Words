@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/materialize-n.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="fontawesome-free-5.13.0-web/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
@@ -84,11 +85,11 @@
                             <p>增强模式、竖向排列、链接转短链接...</p>
                         </div>
                         <div class="col s12 m6">
-                            <h3>Change Log v0.13</h3>
+                            <h3>公告</h3>
                             <p>
-                                新增 隐藏文本功能<br>
-                                新增 还原模式<br>
-                                优化 细节
+                                U+200b 和 U+202e 已被酷安屏蔽<br>
+                                已将 U+200b 替换为了 U+2062<br>
+                                并用U+2067实现了新的反转模式
                             </p>
                         </div>
                     </div>
@@ -111,9 +112,9 @@
                 <div class="letf-bottom-cornor">
                     BY NitroFire<br>Coolapk@SH_XN
                 </div>
-                <span id="busuanzi_container_site_pv">
+                <!-- <span id="busuanzi_container_site_pv">
                     <i class="fas fa-eye"></i> <span id="busuanzi_value_site_pv"></span>
-                </span>
+                </span> -->
             </div>
             <div class="row row2">
                 <div class="container light">
@@ -169,6 +170,10 @@
                                     <label>
                                         <input type="checkbox" class="filled-in" id="zero-width-space" checked="checked" />
                                         <span>零宽间隔（普通）</span>
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="filled-in" id="rows-reverse-2067" />
+                                        <span>每行双重反转（酷安专用）（增强）</span>
                                     </label>
                                     <label>
                                         <input type="checkbox" class="filled-in" id="rows-reverse" />
@@ -310,7 +315,7 @@
                 <div class="container light">
                     <footer>
                         <div style="text-align: center;">
-                            © 2020 WordsAway<br>
+                            © 2021 WordsAway<br>
                             <div style="height: 3px;"></div>
                             <a href="https://github.com/NitroRCr/Words-away">
                                 <i class="fab fa-github" style="font-size: 1.15em"></i></a>
@@ -332,6 +337,5 @@
     <script src="js/simple.js"></script>
     <script src="js/index.js"></script>
     <script src="js/materialize.min.js"></script>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
     </script>
 </body>
